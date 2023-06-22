@@ -1,8 +1,9 @@
-# Use an OpenJDK runtime as the base image
-FROM openjdk:20
+FROM maven:3.8.5-openjdk-17 AS build
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copy the JAR file into the container
-ADD target/K8s_DeploymentFailureAnalysis-0.0.1-SNAPSHOT.jar app.jar
 
-# Set the command to run when the container starts
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+FROM openjdk:20.0.1-jdk-slim
+COPY --from=build /target/K8s_DeploymentFailureAnalysis-0.0.1-SNAPSHOT.jar api.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","api.jar"]
