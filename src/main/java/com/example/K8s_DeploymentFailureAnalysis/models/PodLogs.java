@@ -15,7 +15,7 @@ public class PodLogs {
     private String memory;
     private String reason;
     private String message;
-    private List<String> logs;
+    private String logs;
 
     public String getDeployment_name() {
         return deployment_name;
@@ -89,11 +89,11 @@ public class PodLogs {
         this.message = message;
     }
 
-    public List<String> getLogs() {
+    public String getLogs() {
         return logs;
     }
 
-    public void setLogs(List<String> logs) {
+    public void setLogs(String logs) {
         this.logs = logs;
     }
 
